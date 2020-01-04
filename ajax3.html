@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Free Web tutorials">
+  <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+  <meta name="author" content="John Doe">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajax3 - Externals API</title>
+  <style>
+    #user{
+      display: flex;
+      background: #f4f4f4;
+      padding:10px;
+      margin-bottom:10px;
+    }
+    #users li {
+      list-style: none;
+    }
+  </style>
+</head>
+
+  <body>
+    <button id="button">Get Github Users</button>
+    <br>
+    <div id="users"></div>
+    <script>
+      document.getElementById("button").addEventListener("click",loadusers);
+      function loadusers(){
+        var xhr = new XMLHttpRequest();
+        xhr.open("Get","https://api.github.com/users",true);
+        xhr.onload = function(){
+        if(xhr.status == 200){
+          var users = JSON.parse(xhr.responseText);
+          console.log(users);
+          output = '';
+
+          for(i = 0; i < users.length ;i++){
+            output += '<div id="user">'+
+            "<img src="+users[i].avatar_url+" width=90px height=90px>"+
+            '<ul>'+
+              '<li> ID: '+ users[i].id +'</li>'+
+              '<li> Login: '+ users[i].login+'</li>'+
+            '</ul>'
+            +'</div>';
+          }
+          document.getElementById("users").innerHTML = output;
+
+        }
+}
+      xhr.send();
+}
+
+    </script>
+  </body>
+</html>

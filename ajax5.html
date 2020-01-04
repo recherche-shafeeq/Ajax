@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Free Web tutorials">
+  <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+  <meta name="author" content="John Doe">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajax5 Fetch from PHP</title>
+  </head>
+  <body>
+    <button id="users">Display the table in which the users are input</button>
+    <div id="users_add"></div>
+
+  <script type="text/javascript">
+    document.getElementById('users').addEventListener('click',loadusers);
+
+    function loadusers(){
+      var xhr = new XMLHttpRequest();
+      xhr.open("Get","users.php",true);
+      xhr.onload = function(){
+      if(xhr.status == 200){
+        var users = JSON.parse(xhr.responseText);
+        output = '';
+
+        for(i = 0; i < users.length ;i++){
+          output += '<div id="user">'+
+          '<ul>'+
+            '<li> ID: '+ users[i].id +'</li>'+
+            '<li> name: '+ users[i].name+'</li>'+
+          '</ul>'
+          +'</div>';
+        }
+        document.getElementById("users_add").innerHTML = output;
+
+      }
+}
+    xhr.send();
+}
+
+
+
+
+  </script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Free Web tutorials">
+  <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+  <meta name="author" content="John Doe">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajax1 - LOCAL JSON</title>
+</head>
+
+  <body>
+    <button id="button1">Get User</button><br>
+    <button id="button2">Get User</button><br>
+
+    <div id="User"></div>
+    <div id="Users"></div>
+    <script>
+        document.getElementById("button1").addEventListener("click",loaduser);
+        function loaduser(){
+          var xhr = new XMLHttpRequest();
+          xhr.open("Get","user.json",true);
+          xhr.onload = function(){
+            if(xhr.status == 200){
+              console.log(xhr.responseText);
+              var data = JSON.parse(xhr.responseText);
+              output = '';
+              output += '<ul>' +
+                '<li> ID : ' + data.id +' </li>' +
+                '<li> ID : ' + data.name +' </li>' +
+                '<li> ID : ' + data.email +' </li>' +
+              '</ul>';
+              document.getElementById("User").innerHTML = output;
+          }
+        }
+          xhr.send();
+      }
+      document.getElementById("button2").addEventListener("click",loadusers);
+      function loadusers(){
+        var xhr = new XMLHttpRequest();
+        xhr.open("Get","users.json",true);
+        xhr.onload = function(){
+          if(xhr.status == 200){
+            console.log(xhr.responseText);
+            var data = JSON.parse(xhr.responseText);
+            output = '';
+            for(i = 0 ;i < data.length;i++){
+              output += '<ul>' +
+                '<li> ID : ' + data[i].id +' </li>' +
+                '<li> ID : ' + data[i].name +' </li>' +
+                '<li> ID : ' + data[i].email +' </li>' +
+              '</ul>';
+              document.getElementById("User").innerHTML = output;
+            }
+        }
+      }
+        xhr.send();
+    }
+    </script>
+  </body>
+</html>
